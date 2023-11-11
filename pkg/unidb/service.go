@@ -1,36 +1,34 @@
 package unidb
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Service interface {
-	Reader
-	Writer
+type IUniDB interface {
+	// Find is a method what can be used to find any data from database
+	Find(dest interface{}, query string, args ...interface{}) error
+	// Create is a method what can be used to create any data to database
+	Create()
 }
 
-type service struct {
-	repo Repository
+type UniDB struct {
+	repo Manager
 }
 
-func NewService(repo Repository) Service {
-	return &service{
+func New(repo Manager) IUniDB {
+	return &UniDB{
 		repo: repo,
 	}
 }
 
-func (s *service) Find() {}
-
-func (s *service) FindAll(query string, args ...any) ([]map[string]interface{}, error) {
-
-	result, err := s.repo.FindAll(query, args...)
+func (uni *UniDB) Find(dest interface{}, query string, args ...interface{}) error {
+	err := uni.repo.Find(dest, query, args...)
 	if err != nil {
-		return nil, fmt.Errorf("service.FindAll: %w", err)
+		return fmt.Errorf("unidb.Find: %w", err)
 	}
-
-	return result, nil
+	return nil
 }
 
-func (s *service) New() {}
-
-func (s *service) Edit() {}
-
-func (s *service) Delete() {}
+func (uni *UniDB) Create() {
+	fmt.Println("Create")
+}
