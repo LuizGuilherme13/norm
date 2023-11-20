@@ -1,14 +1,15 @@
-package main
+package test
 
 import (
 	"fmt"
+	"testing"
 
 	"github.com/LuizGuilherme13/unidb/internal/db/tables"
 	"github.com/LuizGuilherme13/unidb/pkg/unidb"
 	"github.com/LuizGuilherme13/unidb/pkg/unidb/models"
 )
 
-func main() {
+func TestGet(t *testing.T) {
 	unidb := unidb.New(models.DBConn{
 		Driver:   "postgres",
 		Host:     "localhost",
@@ -23,19 +24,10 @@ func main() {
 
 	unidb.Migrate(&account)
 
-	err := unidb.Model(&account).Where("user_id = ?", 6).Get("*")
+	err := unidb.Model(&account).Where("user_id = ?", 1).Get("*")
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
-	fmt.Println(account.UserID, account.UserName)
-
+	fmt.Println("Result =>", account.UserID, account.UserName)
 }
-
-// unidb.Migrate(&account)
-
-// unidb.Model(&account).Where("user_id = ?", 1).Update("username")
-
-// unidb.Model(&account).Create()
-
-// unidb.Model(&account).Where("user_id = ?", 1).Get("*")

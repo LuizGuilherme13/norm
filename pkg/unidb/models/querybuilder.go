@@ -3,12 +3,30 @@ package models
 import (
 	"strconv"
 	"strings"
+
+	"github.com/LuizGuilherme13/unidb/pkg/internal/structutils"
 )
 
 type QueryBuilder struct {
+	// T is Table
 	T string
+	// M is model, a pointer of struct
+	M any
+	// Q is Query
 	Q string
+	// C is Columns (Optional)
+	C []string
+	// A is Args
 	A []any
+}
+
+func (qb *QueryBuilder) Model(model interface{}) *QueryBuilder {
+	columns, values := structutils.GetTagsNames("db", model, false)
+
+	qb.C = columns
+	qb.A = values
+
+	return qb
 }
 
 func (qb *QueryBuilder) Table(t string) *QueryBuilder {
@@ -22,13 +40,14 @@ func (qb *QueryBuilder) Get(cols ...string) *QueryBuilder {
 	return qb
 }
 
-func (qb *QueryBuilder) Insert(cols string, values ...any) *QueryBuilder {
-	qb.Q = "INSERT INTO " + qb.T + " (" + cols + ") "
+func (qb *QueryBuilder) Insert() *QueryBuilder {
+
+	qb.Q = "INSERT INTO " + qb.T + " (" + strings.Join(qb.C, ", ") + ") "
 	qb.Q += "VALUES ("
-	for i := 0; i < len(values); i++ {
-		pos := strconv.Itoa(len(qb.A) + 1)
+
+	for i := 0; i < len(qb.A); i++ {
+		pos := strconv.Itoa(i + 1)
 		qb.Q += "$" + pos + ", "
-		qb.A = append(qb.A, values[i])
 	}
 	qb.Q = strings.TrimSuffix(qb.Q, ", ") + ")"
 
@@ -36,8 +55,8 @@ func (qb *QueryBuilder) Insert(cols string, values ...any) *QueryBuilder {
 }
 
 func (qb *QueryBuilder) Update(cols map[string]any) *QueryBuilder {
-
 	qb.Q = "UPDATE " + qb.T + " SET "
+
 	for k, v := range cols {
 		qb.Q += k + " = :" + k + ", "
 		qb.A = append(qb.A, v)
