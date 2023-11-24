@@ -3,7 +3,7 @@ package unidb
 import (
 	"database/sql"
 
-	"github.com/LuizGuilherme13/unidb/pkg/unidb/models"
+	"github.com/LuizGuilherme13/unodatabase/pkg/unidb/models"
 )
 
 type UniDB struct {

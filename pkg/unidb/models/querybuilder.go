@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/LuizGuilherme13/unidb/pkg/internal/structutils"
+	"github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 )
 
 type QueryBuilder struct {

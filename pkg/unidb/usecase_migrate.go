@@ -1,6 +1,6 @@
 package unidb
 
-import "github.com/LuizGuilherme13/unidb/pkg/internal/structutils"
+import "github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 
 // Migrate por enquanto apenas pega o nome da struct e passa para UniDB.Table.
 // Sendo necessário utilizar este método sempre que for realizar alguma solicitação ao banco.

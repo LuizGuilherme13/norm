@@ -1,4 +1,4 @@
-module github.com/LuizGuilherme13/unidb
+module github.com/LuizGuilherme13/unodatabase
 
 go 1.21.2
 

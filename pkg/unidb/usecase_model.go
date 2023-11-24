@@ -1,6 +1,6 @@
 package unidb
 
-import "github.com/LuizGuilherme13/unidb/pkg/internal/structutils"
+import "github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 
 func (udb *UniDB) Model(model any) *UniDB {
 	columns, _ := structutils.GetTagsNames("db", model, false)

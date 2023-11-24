@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/LuizGuilherme13/unidb/pkg/internal/structutils"
+	"github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 )
 
 func (udb *UniDB) Get(cols ...string) error {
