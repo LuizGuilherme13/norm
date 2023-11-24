@@ -1,4 +1,4 @@
-package unidb
+package unodatabase
 
 import "github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 

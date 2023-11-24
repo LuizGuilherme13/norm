@@ -1,4 +1,4 @@
-package unidb
+package unodatabase
 
 type IUniDB interface {
 	Open() error

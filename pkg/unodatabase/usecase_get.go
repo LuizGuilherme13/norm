@@ -1,4 +1,4 @@
-package unidb
+package unodatabase
 
 import (
 	"errors"

@@ -1,4 +1,4 @@
-package unidb
+package unodatabase
 
 import (
 	_ "github.com/lib/pq"

@@ -5,12 +5,12 @@ import (
 	"testing"
 
 	"github.com/LuizGuilherme13/unodatabase/internal/db/tables"
-	"github.com/LuizGuilherme13/unodatabase/pkg/unidb"
-	"github.com/LuizGuilherme13/unodatabase/pkg/unidb/models"
+	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase"
+	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
 
 func TestGet(t *testing.T) {
-	unidb := unidb.New(models.DBConn{
+	unidb := unodatabase.New(models.DBConn{
 		Driver:   "postgres",
 		Host:     "localhost",
 		Port:     "5432",

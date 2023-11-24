@@ -1,9 +1,9 @@
-package unidb
+package unodatabase
 
 import (
 	"database/sql"
 
-	"github.com/LuizGuilherme13/unodatabase/pkg/unidb/models"
+	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
 
 type UniDB struct {
