@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/LuizGuilherme13/unodatabase/internal/db/tables"
+	"github.com/LuizGuilherme13/unodatabase/internal/entity"
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase"
+	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/database/postgres"
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
 
 func main() {
-	unidb := unodatabase.New(models.DBConn{
+	uno := unodatabase.NewDB(postgres.NewPsqlConn(models.DBConn{
 		Driver:   "postgres",
 		Host:     "localhost",
 		Port:     "5432",
@@ -17,25 +18,27 @@ func main() {
 		Password: "postgres",
 		DBName:   "unidb",
 		SSLMode:  "disable",
-	})
+	}))
 
-	account := tables.Account{}
+	a := entity.Account{}
 
-	unidb.Migrate(&account)
+	uno.Migrate(&a)
 
-	err := unidb.Model(&account).Where("user_id = ?", 6).Get("*")
+	err := uno.Model(&a).Where("user_id = $1", 1).Get("*")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(account.UserID, account.UserName)
+	fmt.Println(a)
 
 }
 
-// unidb.Migrate(&account)
+//* OK unidb.Migrate(&account)
 
-// unidb.Model(&account).Where("user_id = ?", 1).Update("username")
+// TODO unidb.Model(&account).Where("user_id = ?", 1).Update("username")
 
-// unidb.Model(&account).Create()
+// TODO unidb.Model(&account).Where("user_id = ?", 1).Delete()
 
-// unidb.Model(&account).Where("user_id = ?", 1).Get("*")
+//* OK unidb.Model(&account).Create()
+
+//* OK unidb.Model(&account).Where("user_id = ?", 1).Get("*")

@@ -2,10 +2,9 @@ package structutils
 
 import (
 	"reflect"
-	"strings"
 )
 
-// GetName retorna o nome da struct em lowercase
+// GetName retorna o nome da struct
 func GetName(model interface{}) string {
 	modelType := reflect.TypeOf(model)
 
@@ -13,6 +12,6 @@ func GetName(model interface{}) string {
 		modelType = modelType.Elem()
 	}
 
-	return strings.ToLower(modelType.Name())
+	return modelType.Name()
 
 }

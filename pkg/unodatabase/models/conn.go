@@ -10,6 +10,11 @@ type DBConn struct {
 	SSLMode  string
 }
 
-func (c *DBConn) String() string {
-	return "host=" + c.Host + " port=" + c.Port + " user=" + c.User + " password=" + c.Password + " dbname=" + c.DBName + " sslmode=" + c.SSLMode
+func (db *DBConn) String() string {
+	return ("host=" + db.Host +
+		" port=" + db.Port +
+		" user=" + db.User +
+		" password=" + db.Password +
+		" dbname=" + db.DBName +
+		" sslmode=" + db.SSLMode)
 }

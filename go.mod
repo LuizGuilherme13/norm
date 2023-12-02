@@ -8,4 +8,7 @@ require (
 	github.com/lib/pq v1.10.9
 )
 
-require golang.org/x/text v0.14.0 // indirect
+require (
+	github.com/bxcodec/faker/v3 v3.8.1
+	golang.org/x/text v0.14.0 // indirect
+)
