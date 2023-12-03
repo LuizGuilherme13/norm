@@ -1,6 +1,8 @@
 package postgres
 
 import (
+	_ "github.com/lib/pq"
+
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/database"
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
