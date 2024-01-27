@@ -8,7 +8,7 @@ import (
 	"github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 )
 
-func (db *PsqlConn) Get(cols ...string) error {
+func (db *PsqlConn) Find(cols ...string) error {
 	conn, err := sql.Open(db.Conn.Driver, db.Conn.String())
 	if err != nil {
 		return err

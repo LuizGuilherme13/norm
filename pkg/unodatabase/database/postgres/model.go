@@ -5,7 +5,7 @@ import (
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/database"
 )
 
-func (db *PsqlConn) Model(model any) database.Repository {
+func (db *PsqlConn) WithModel(model any) database.Repository {
 	db.Query.Dest.Self = model
 	db.Query.Dest.Fields = structutils.GetTags("db", model)
 

@@ -5,8 +5,8 @@ import (
 	"errors"
 )
 
-func (db *DB) Get(cols ...string) error {
-	err := db.Repository.Get(cols...)
+func (db *DB) Find(cols ...string) error {
+	err := db.Repository.Find(cols...)
 	switch {
 	case errors.Is(err, sql.ErrNoRows):
 		return errors.New("unodatabase.Get: Register not found")

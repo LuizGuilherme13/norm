@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (db *PsqlConn) Create() error {
+func (db *PsqlConn) New() error {
 	conn, err := sql.Open(db.Conn.Driver, db.Conn.String())
 	if err != nil {
 		return err

@@ -6,4 +6,5 @@
 *.test
 *.out
 *.env
+internal/
 
