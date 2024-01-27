@@ -10,7 +10,7 @@ import (
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
 
-func TestGet(t *testing.T) {
+func TestFind(t *testing.T) {
 	unoDB := unodatabase.NewDB(postgres.NewPsqlConn(models.DBConn{
 		Driver:   "postgres",
 		Host:     "localhost",
