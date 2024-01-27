@@ -1,9 +1,9 @@
 package database
 
 type Repository interface {
-	Migrate(model any)
-	Model(model any) Repository
-	Get(cols ...string) error
+	Into(table string) Repository
+	WithModel(model any) Repository
+	Find(cols ...string) error
 	Where(condition string, values ...any) Repository
-	Create() error
+	New() error
 }

@@ -4,9 +4,9 @@ import (
 	"time"
 )
 
-type Account struct {
-	UserID    int64     `db:"user_id"`
-	UserName  string    `db:"username"`
+type User struct {
+	ID        int64     `db:"user_id"`
+	Name      string    `db:"username"`
 	Password  string    `db:"password"`
 	Email     string    `db:"email"`
 	CreatedOn time.Time `db:"created_on"`

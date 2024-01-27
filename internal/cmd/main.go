@@ -20,11 +20,11 @@ func main() {
 		SSLMode:  "disable",
 	}))
 
-	a := entity.Account{}
+	a := entity.User{}
 
-	uno.Migrate(&a)
+	uno.Into("users")
 
-	err := uno.Model(&a).Where("user_id = $1", 1).Get("*")
+	err := uno.WithModel(&a).Where("user_id = $1", 1).Find("*")
 	if err != nil {
 		panic(err)
 	}
