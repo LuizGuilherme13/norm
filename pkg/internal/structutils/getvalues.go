@@ -9,11 +9,9 @@ func GetValues(tag string, model any) map[string]any {
 	values := make(map[string]any)
 
 	for i := 0; i < modelType.NumField(); i++ {
-		field := modelValue.Field(i)
-
 		t := modelType.Field(i).Tag.Get(tag)
 
-		values[t] = field.Interface()
+		values[t] = modelValue.Field(i).Interface()
 	}
 
 	return values

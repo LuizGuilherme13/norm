@@ -5,23 +5,15 @@ import (
 )
 
 func GetTags(tag string, model any) []string {
-	modelValue := reflect.ValueOf(model).Elem()
-	modelType := modelValue.Type()
+	t := reflect.TypeOf(model).Elem()
 
 	var tags []string
 
-	for i := 0; i < modelType.NumField(); i++ {
-		field := modelType.Field(i)
-		// value := modelValue.Field(i)
+	for i := 0; i < t.NumField(); i++ {
 
-		dbTagName := field.Tag.Get(tag)
-
-		// postTag := field.Tag.Get("post")
-		// getTag := field.Tag.Get("get")
-
-		if dbTagName != "" {
-
-			tags = append(tags, dbTagName)
+		fieldTag := t.Field(i).Tag.Get(tag)
+		if tag != "" {
+			tags = append(tags, fieldTag)
 		}
 	}
 
