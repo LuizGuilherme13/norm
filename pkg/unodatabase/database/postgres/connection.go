@@ -7,11 +7,13 @@ import (
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
 
+// PsqlConn is the struct that represents the database repository
 type PsqlConn struct {
 	Conn  models.DBConn
 	Query models.Query
 }
 
+// NewPsqlConn creates a new PostgresSQL repository instance
 func NewPsqlConn(conn models.DBConn) database.Repository {
 	return &PsqlConn{
 		Conn: conn,

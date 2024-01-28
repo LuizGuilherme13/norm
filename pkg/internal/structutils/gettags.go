@@ -12,11 +12,16 @@ func GetTags(tag string, model any) []string {
 
 	for i := 0; i < modelType.NumField(); i++ {
 		field := modelType.Field(i)
+		// value := modelValue.Field(i)
 
-		t := field.Tag.Get(tag)
+		dbTagName := field.Tag.Get(tag)
 
-		if t != "" {
-			tags = append(tags, t)
+		// postTag := field.Tag.Get("post")
+		// getTag := field.Tag.Get("get")
+
+		if dbTagName != "" {
+
+			tags = append(tags, dbTagName)
 		}
 	}
 

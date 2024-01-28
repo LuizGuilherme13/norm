@@ -21,8 +21,6 @@ func (db *PsqlConn) New() error {
 
 	var valuesPosition []string
 	for i := range db.Query.Dest.Values {
-		// fmt.Println(db.Query.Dest.Values[i])
-		fmt.Scanln()
 		valuesPosition = append(valuesPosition, fmt.Sprintf("$%d", i+1))
 	}
 
@@ -31,8 +29,7 @@ func (db *PsqlConn) New() error {
 	query += fmt.Sprintf("VALUES (%s)", strings.Join(valuesPosition, ", "))
 
 	// fmt.Println(query)
-	// fmt.Println(values...)
-
+	// fmt.Println(db.Query.Dest.Values...)
 	_, err = tx.Exec(query, db.Query.Dest.Values...)
 	if err != nil {
 		return err
