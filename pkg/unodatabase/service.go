@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/LuizGuilherme13/unodatabase/pkg/internal/structutils"
 	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 )
 
@@ -36,52 +35,78 @@ func (s *Service) InTable(name string) *Service {
 
 func (s *Service) ToModel(model any) *Service {
 
-	t := reflect.TypeOf(model)
-	if t.Kind() != reflect.Pointer && t.Elem().Kind() != reflect.Struct {
+	typeOf := reflect.TypeOf(model)
+
+	if typeOf.Kind() != reflect.Pointer || typeOf.Elem().Kind() != reflect.Struct {
 		s.Errors.Add(
 			"unodatabase.ToModel",
-			fmt.Sprintf("the '%s' struct should be a pointer", t.Name()),
+			fmt.Sprintf("the '%s' struct should be a pointer", typeOf.Name()),
 		)
+	} else {
+
+		s.Query.Dest.Self = model
+
+		element := typeOf.Elem()
+
+		for i := 0; i < element.NumField(); i++ {
+			s.Query.Dest.Fields = append(s.Query.Dest.Fields, models.Field{
+				Column: element.Field(i).Tag.Get("db"),
+			})
+		}
 	}
-
-	s.Query.Dest.Self = model
-
-	fields := structutils.GetTags("db", model)
-	s.Query.Dest.Fields = append(s.Query.Dest.Fields, fields...)
 
 	return s
 }
 
 func (s *Service) FromModel(model any) *Service {
-	t := reflect.TypeOf(model)
-	if t.Kind() != reflect.Pointer && t.Elem().Kind() != reflect.Struct {
+	typeOf := reflect.TypeOf(model)
+	valueOf := reflect.ValueOf(model).Elem()
+
+	if typeOf.Kind() != reflect.Pointer || typeOf.Elem().Kind() != reflect.Struct {
 		s.Errors.Add(
-			"unodatabase.ToModel",
-			fmt.Sprintf("the '%s' struct should be a pointer", t.Name()),
+			"unodatabase.FromModel",
+			fmt.Sprintf("the '%s' struct should be a pointer", typeOf.Name()),
 		)
+	} else {
+
+		s.Query.Dest.Self = model
+
+		element := typeOf.Elem()
+
+		for i := 0; i < element.NumField(); i++ {
+			s.Query.Dest.Fields = append(s.Query.Dest.Fields, models.Field{
+				Column: element.Field(i).Tag.Get("db"),
+				Value:  valueOf.Field(i).Interface(),
+			})
+		}
 	}
 
-	s.Query.Dest.Self = model
-
-	fields := structutils.GetTags("db", model)
-	s.Query.Dest.Fields = append(s.Query.Dest.Fields, fields...)
-
-	values := structutils.GetValues("db", model)
-	for _, field := range s.Query.Dest.Fields {
-		s.Query.Dest.Values = append(s.Query.Dest.Values, values[field])
-	}
 	return s
 }
 
 func (s *Service) Only(cols ...string) *Service {
 	if len(cols) == 1 && cols[0] == "*" {
-		s.Query.Fields = append(s.Query.Fields, s.Query.Dest.Fields...)
+		for _, field := range s.Query.Dest.Fields {
+			s.Query.Fields = append(s.Query.Fields, field.Column)
+			s.Query.Args = append(s.Query.Args, field.Value)
+		}
 	} else if len(cols) > 0 {
 		for _, col := range cols {
+			var added bool
 			for _, field := range s.Query.Dest.Fields {
-				if col == field {
-					s.Query.Fields = append(s.Query.Fields, field)
+				if col == field.Column {
+					added = true
+					s.Query.Fields = append(s.Query.Fields, field.Column)
+					s.Query.Args = append(s.Query.Args, field.Value)
 				}
+			}
+			if !added {
+				typeOf := reflect.TypeOf(s.Query.Dest.Self)
+				s.Errors.Add(
+					"unodatabase.Only",
+					fmt.Sprintf(
+						"apparently field '%s' does not exist in struct '%s'", col, typeOf.Elem().Name()),
+				)
 			}
 		}
 	}
@@ -92,8 +117,10 @@ func (s *Service) Only(cols ...string) *Service {
 func (s *Service) Omit(cols ...string) *Service {
 	for _, col := range cols {
 		for _, field := range s.Query.Dest.Fields {
-			if col != field {
-				s.Query.Fields = append(s.Query.Fields, field)
+			if col != field.Column {
+				s.Query.Fields = append(s.Query.Fields, field.Column)
+				s.Query.Args = append(s.Query.Args, field.Value)
+
 			}
 		}
 	}
@@ -120,6 +147,15 @@ func (s *Service) Find() error {
 	return nil
 }
 
-func (s *Service) Create() {
-	s.r.Create(s.Query)
+func (s *Service) Create() error {
+
+	if len(s.Errors.Errors) > 0 {
+		return fmt.Errorf(s.Errors.Errors[0].String())
+	}
+	err := s.r.Create(s.Query)
+	if err != nil {
+		return fmt.Errorf("unodatabase.Create: %w", err)
+
+	}
+	return nil
 }

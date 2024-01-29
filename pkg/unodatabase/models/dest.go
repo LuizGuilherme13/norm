@@ -2,6 +2,10 @@ package models
 
 type Dest struct {
 	Self   any
-	Fields []string
-	Values []any
+	Fields []Field
+}
+
+type Field struct {
+	Column string
+	Value  any
 }

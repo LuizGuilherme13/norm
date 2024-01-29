@@ -10,5 +10,5 @@ type UseCase interface {
 	Omit(cols ...string) *Service
 	Where(conditions ...models.Condition) *Service
 	Find() error
-	Create()
+	Create() error
 }

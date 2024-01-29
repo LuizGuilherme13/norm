@@ -4,5 +4,5 @@ import "github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
 
 type Repository interface {
 	Find(query models.Query) error
-	Create(query models.Query)
+	Create(query models.Query) error
 }
