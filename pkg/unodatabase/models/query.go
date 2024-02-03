@@ -1,9 +1,9 @@
 package models
 
 type Query struct {
+	Model      Model
 	Table      string
 	Fields     []string
-	Conditions []Condition
 	Args       []any
-	Dest       Dest
+	Conditions []Condition
 }
