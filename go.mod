@@ -1,4 +1,4 @@
-module github.com/LuizGuilherme13/unodatabase
+module github.com/LuizGuilherme13/norm
 
 go 1.21.2
 

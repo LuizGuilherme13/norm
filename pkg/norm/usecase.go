@@ -1,4 +1,4 @@
-package unodatabase
+package norm
 
 type UseCase interface {
 	InTable(name string) *Service

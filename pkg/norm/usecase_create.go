@@ -1,4 +1,4 @@
-package unodatabase
+package norm
 
 import "fmt"
 
@@ -9,7 +9,7 @@ func (s *Service) Create() error {
 	}
 	err := s.r.Create(s.Query)
 	if err != nil {
-		return fmt.Errorf("unodatabase.Create: %w", err)
+		return fmt.Errorf("norm.Create: %w", err)
 
 	}
 	return nil

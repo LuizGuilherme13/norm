@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
+	"github.com/LuizGuilherme13/norm/pkg/norm/internal/models"
 )
 
 func (r *Repository) Create(query models.Query) error {

@@ -1,8 +1,6 @@
-package unodatabase
+package norm
 
-import (
-	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
-)
+import "github.com/LuizGuilherme13/norm/pkg/norm/internal/models"
 
 type Service struct {
 	r      Repository

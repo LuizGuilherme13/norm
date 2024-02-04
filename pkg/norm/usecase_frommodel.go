@@ -1,10 +1,10 @@
-package unodatabase
+package norm
 
 import (
 	"fmt"
 	"reflect"
 
-	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
+	"github.com/LuizGuilherme13/norm/pkg/norm/internal/models"
 )
 
 func (s *Service) FromModel(model any) *Service {
@@ -13,7 +13,7 @@ func (s *Service) FromModel(model any) *Service {
 
 	if typeOf.Kind() != reflect.Pointer || typeOf.Elem().Kind() != reflect.Struct {
 		s.Errors.Add(
-			"unodatabase.FromModel",
+			"norm.FromModel",
 			fmt.Sprintf("the '%s' struct should be a pointer", typeOf.Name()),
 		)
 	} else {

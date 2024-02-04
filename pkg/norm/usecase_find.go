@@ -1,4 +1,4 @@
-package unodatabase
+package norm
 
 import "fmt"
 
@@ -10,7 +10,7 @@ func (s *Service) Find() error {
 
 	err := s.r.Find(s.Query)
 	if err != nil {
-		return fmt.Errorf("unodatabase.Find: %w", err)
+		return fmt.Errorf("norm.Find: %w", err)
 
 	}
 

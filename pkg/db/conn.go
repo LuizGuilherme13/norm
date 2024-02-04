@@ -1,4 +1,4 @@
-package models
+package db
 
 type DBConn struct {
 	Driver   string

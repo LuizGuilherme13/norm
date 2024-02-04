@@ -1,4 +1,4 @@
-package models
+package db
 
 type Condition struct {
 	Condition string

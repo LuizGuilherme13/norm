@@ -1,10 +1,10 @@
-package unodatabase
+package norm
 
 import (
 	"fmt"
 	"reflect"
 
-	"github.com/LuizGuilherme13/unodatabase/pkg/unodatabase/models"
+	"github.com/LuizGuilherme13/norm/pkg/norm/internal/models"
 )
 
 func (s *Service) ToModel(model any) *Service {
@@ -14,19 +14,19 @@ func (s *Service) ToModel(model any) *Service {
 
 	if typeOf.Kind() != reflect.Pointer {
 		s.Errors.Add(
-			"unodatabase.ToModel",
+			"norm.ToModel",
 			fmt.Sprintf("the '%s' should be a pointer", typeOf.Name()),
 		)
 
 		if elem.Kind() != reflect.Slice && elem.Elem().Kind() != reflect.Struct {
 			s.Errors.Add(
-				"unodatabase.ToModel",
+				"norm.ToModel",
 				"the param 'model' should be a struct",
 			)
 		}
 		if elem.Kind() == reflect.Slice && elem.Elem().Kind() != reflect.Struct {
 			s.Errors.Add(
-				"unodatabase.ToModel",
+				"norm.ToModel",
 				"the param 'model' should be a slice of struct",
 			)
 		}

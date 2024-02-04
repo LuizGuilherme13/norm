@@ -1,4 +1,4 @@
-package unodatabase
+package norm
 
 import "fmt"
 
@@ -20,7 +20,7 @@ func (s *Service) Only(cols ...string) *Service {
 			}
 			if !added {
 				s.Errors.Add(
-					"unodatabase.Only",
+					"norm.Only",
 					fmt.Sprintf(
 						"apparently field '%s' does not exist in struct '%s'", col, s.Query.Model.Name()),
 				)

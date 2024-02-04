@@ -1,9 +1,9 @@
-package unodatabase
+package norm
 
 func (s *Service) InTable(name string) *Service {
 	if name == "" {
 		s.Errors.Add(
-			"unodatabase.ToModel",
+			"norm.ToModel",
 			"the name of the table must be informed",
 		)
 	}
