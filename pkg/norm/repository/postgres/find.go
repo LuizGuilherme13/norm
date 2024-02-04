@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/LuizGuilherme13/norm/pkg/norm/internal/models"
+	"github.com/LuizGuilherme13/norm/pkg/norm/internal/pkg/models"
 )
 
 func (r *Repository) Find(query models.Query) error {

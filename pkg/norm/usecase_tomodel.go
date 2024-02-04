@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/LuizGuilherme13/norm/pkg/norm/internal/models"
+	"github.com/LuizGuilherme13/norm/pkg/norm/internal/pkg/models"
 )
 
 func (s *Service) ToModel(model any) *Service {
