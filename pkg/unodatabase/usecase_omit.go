@@ -8,6 +8,7 @@ func (s *Service) Omit(cols ...string) *Service {
 
 		for _, field := range s.Query.Model.Fields {
 			if col != field.Column {
+				added = true
 				s.Query.Fields = append(s.Query.Fields, field.Column)
 				s.Query.Args = append(s.Query.Args, field.Value)
 			}

@@ -18,12 +18,12 @@ func (r *Repository) Find(query models.Query) error {
 
 	q := "SELECT " + strings.Join(query.Fields, ", ")
 	q += " FROM " + query.Table
-	q += " WHERE 1 = 1"
+	q += " WHERE 1 = 1 "
 	args := []any{}
 
 	if len(query.Conditions) > 0 {
 		for _, condition := range query.Conditions {
-			q += "  AND " + condition.Condition
+			q += condition.Condition
 			args = append(args, condition.Value)
 		}
 	}
