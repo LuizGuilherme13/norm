@@ -1,17 +1,29 @@
 package postgres
 
 import (
-	"github.com/LuizGuilherme13/norm/pkg/db"
 	"github.com/LuizGuilherme13/norm/pkg/norm"
-	_ "github.com/lib/pq"
 )
 
 type Repository struct {
-	Conn db.DBConn
+	Conn norm.Config
 }
 
-func New(conn db.DBConn) norm.Repository {
+func New(options ...norm.Option) norm.Repository {
+
+	conn := &norm.Config{
+		Host:     "localhost",
+		Port:     "5432",
+		Username: "postgres",
+		Password: "postgres",
+		Database: "postgres",
+		SSLMode:  "disable",
+	}
+
+	for _, opt := range options {
+		opt(conn)
+	}
+
 	return &Repository{
-		Conn: conn,
+		Conn: *conn,
 	}
 }

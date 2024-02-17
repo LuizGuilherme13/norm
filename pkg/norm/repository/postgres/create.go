@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"database/sql"
 	"fmt"
 	"strings"
 
@@ -9,9 +8,9 @@ import (
 )
 
 func (r *Repository) Create(query models.Query) error {
-	db, err := sql.Open(r.Conn.Driver, r.Conn.String())
+	db, err := r.Conn.Init()
 	if err != nil {
-		return fmt.Errorf("postgres.Create(sql.Open): %w", err)
+		return fmt.Errorf("postgres.Find(sql.Open): %w", err)
 	}
 	defer db.Close()
 

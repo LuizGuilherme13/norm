@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"database/sql"
 	"fmt"
 	"reflect"
 	"strings"
@@ -10,7 +9,8 @@ import (
 )
 
 func (r *Repository) Find(query models.Query) error {
-	db, err := sql.Open(r.Conn.Driver, r.Conn.String())
+
+	db, err := r.Conn.Init()
 	if err != nil {
 		return fmt.Errorf("postgres.Find(sql.Open): %w", err)
 	}
@@ -24,7 +24,7 @@ func (r *Repository) Find(query models.Query) error {
 	if len(query.Conditions) > 0 {
 		for _, condition := range query.Conditions {
 			q += condition.Condition
-			args = append(args, condition.Value)
+			args = append(args, condition.Value...)
 		}
 	}
 

@@ -1,6 +1,8 @@
 package norm
 
-import "github.com/LuizGuilherme13/norm/pkg/norm/internal/pkg/models"
+import (
+	"github.com/LuizGuilherme13/norm/pkg/norm/internal/pkg/models"
+)
 
 type Service struct {
 	r      Repository

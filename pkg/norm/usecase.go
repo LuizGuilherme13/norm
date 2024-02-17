@@ -6,7 +6,7 @@ type UseCase interface {
 	FromModel(model any) *Service
 	Only(cols ...string) *Service
 	Omit(cols ...string) *Service
-	WithConditions(conditions ...Option) *Service
+	WithConditions(conditions ...Condition) *Service
 	Find() error
 	FindAll() error
 	Create() error
